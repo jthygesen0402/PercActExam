@@ -1,0 +1,317 @@
+---
+API: 2.1
+OpenSesame: 3.3.12
+Platform: posix
+---
+set width 1024
+set uniform_coordinates yes
+set title "Extended template"
+set subject_parity even
+set subject_nr 0
+set start experiment
+set sound_sample_size -16
+set sound_freq 48000
+set sound_channels 2
+set sound_buf_size 1024
+set sampler_backend legacy
+set round_decimals 2
+set mouse_backend xpyriment
+set keyboard_backend legacy
+set height 768
+set fullscreen no
+set form_clicks no
+set foreground white
+set font_underline no
+set font_size 18
+set font_italic no
+set font_family mono
+set font_bold no
+set experiment_path "/Users/jakobthygesen/Desktop/Cognitive Science/3rd semester/Perception and action/PercAct2022/mousetracking/Mousetracking_experiment"
+set disable_garbage_collection yes
+set description "A template containing a practice and an experimental phase"
+set coordinates uniform
+set compensation 0
+set color_backend legacy
+set clock_backend legacy
+set canvas_backend xpyriment
+set bidi yes
+set background black
+
+define notepad about_this_template
+	__note__
+	This template already contains the basic structure of a typical experiment.
+	It consists of a practice phase, followed by an experimental phase. For more
+	information, please visit <http://osdoc.cogsci.nl/>
+	Have fun with OpenSesame!
+	__end__
+	set description "Some pointers to help you gest started!"
+
+define sequence block_sequence
+	set flush_keyboard yes
+	set description "A sequence containing a single block of trials followed by feedback to the participant"
+	run reset_feedback always
+	run practice_setup "[practice]==yes"
+	run experimental_setup "[practice]==no"
+	run feedback "[practice]==yes"
+
+define sketchpad end_of_experiment
+	set start_response_interval no
+	set duration keypress
+	set description "A sketchpad notifying the participant that the experiment is finished"
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Press any key to exit" x=0 y=0 z_index=0
+
+define sketchpad end_of_practice
+	set start_response_interval no
+	set duration keypress
+	set description "A sketchpad notifying the participant that the practice phase is finished"
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Now we will continue with the actual experiment.<br /><br />Press any key to continue" x=0 y=0 z_index=0
+
+define sequence experiment
+	set flush_keyboard yes
+	set description "The main sequence of the experiment"
+	run instructions always
+	run practice_loop always
+	run end_of_practice always
+	run experimental_loop always
+	run end_of_experiment always
+
+define loop experimental_loop
+	set source_file ""
+	set source table
+	set skip 0
+	set repeat 1
+	set order random
+	set offset no
+	set item block_sequence
+	set description "A loop containing one or more experimental blocks"
+	set cycles 1
+	set continuous no
+	set column_order practice
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 practice no
+	run block_sequence
+
+define loop experimental_setup
+	set source table
+	set repeat 4
+	set order random
+	set description "Repeatedly runs another item"
+	set cycles 8
+	set continuous no
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 left_figure bouba
+	setcycle 0 right_figure kiki
+	setcycle 0 sound A1
+	setcycle 0 instruction Rounded
+	setcycle 0 correct_button left_button
+	setcycle 1 left_figure kiki
+	setcycle 1 right_figure bouba
+	setcycle 1 sound A1
+	setcycle 1 instruction Rounded
+	setcycle 1 correct_button right_button
+	setcycle 2 left_figure kiki
+	setcycle 2 right_figure bouba
+	setcycle 2 sound A7
+	setcycle 2 instruction Rounded
+	setcycle 2 correct_button right_button
+	setcycle 3 left_figure bouba
+	setcycle 3 right_figure kiki
+	setcycle 3 sound A7
+	setcycle 3 instruction Rounded
+	setcycle 3 correct_button left_button
+	setcycle 4 left_figure bouba
+	setcycle 4 right_figure kiki
+	setcycle 4 sound A1
+	setcycle 4 instruction Spikey
+	setcycle 4 correct_button right_button
+	setcycle 5 left_figure kiki
+	setcycle 5 right_figure bouba
+	setcycle 5 sound A1
+	setcycle 5 instruction Spikey
+	setcycle 5 correct_button left_button
+	setcycle 6 left_figure kiki
+	setcycle 6 right_figure bouba
+	setcycle 6 sound A7
+	setcycle 6 instruction Spikey
+	setcycle 6 correct_button left_button
+	setcycle 7 left_figure bouba
+	setcycle 7 right_figure kiki
+	setcycle 7 sound A7
+	setcycle 7 instruction Spikey
+	setcycle 7 correct_button right_button
+	run new_sequence
+
+define feedback feedback
+	set reset_variables yes
+	set duration keypress
+	set description "Provides feedback to the participant"
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Your average response time was [avg_rt]ms<br /><br />That is a bit slower than average. Please try and hurry up!<br /><br />Press any key to continue" x=0 y=0 z_index=0
+
+define sketchpad instructions
+	set start_response_interval no
+	set duration keypress
+	set description "A sketchpad containing the instructions for the participant"
+	draw textline center=1 color=white font_bold=no font_family=serif font_italic=no font_size=27 html=yes show_if=always text="Velkommen til dette eksperiment!<br /><br />I dette eksperiment vil du blive præsenteret for forskellige ord - et ord vil blive læst op for dig og et ord vil stå skrevet på skærmen. Derudover vil du blive præsenteret for to billeder. Din opgave er hurtigst muligt at klikke på det billede der bedst repræsenterer det ord du HØRER.<br /><br /><br />Når du har valgt et billede går eksperimentet automatisk videre til næste sæt af ord.<br /><br />Vi starter nu med en øve-runde før det faktiske eksperiment starter.<br /><br />Tryk på en valgfri tast for at begynde!" x=0 y=0 z_index=0
+
+define keyboard_response keyboard_response
+	set timeout infinite
+	set flush yes
+	set event_type keypress
+	set duration keypress
+	set description "Collects keyboard responses"
+
+define logger logger
+	set description "Logs experimental data"
+	set auto_log yes
+
+define mouse_response new_mouse_response
+	set timeout infinite
+	set show_cursor yes
+	set linked_sketchpad ""
+	set flush yes
+	set event_type mouseclick
+	set duration mouseclick
+	set description "Collects mouse responses"
+
+define mousetrap_response new_mousetrap_response
+	__warning_message__
+	draw textline text="Please start moving" x=0 y=0
+	__end__
+	set update_feedback yes
+	set timeout infinite
+	set start_coordinates "0;288"
+	set skip_item no
+	set sketchpad trial_stimuli
+	set save_trajectories yes
+	set reset_mouse yes
+	set number_of_buttons 2
+	set mouse_buttons_allowed "left_button;right_button"
+	set max_initiation_time 1000
+	set logging_resolution 10
+	set description "Tracks mouse movements"
+	set correct_button "[correct_button]"
+	set click_required yes
+	set check_initiation_time no
+	set button4 ""
+	set button3 ""
+	set button2 right_button
+	set button1 left_button
+	set boundaries "upper=no lower=no left=no right=no"
+
+define sequence new_sequence
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run sketchpad always
+	run new_synth always
+	run new_synth_1 always
+	run trial_stimuli always
+	run new_mousetrap_response always
+	run logger always
+
+define synth new_synth
+	set volume 1
+	set pan 0
+	set osc sine
+	set length 100
+	set freq "[sound]"
+	set duration sound
+	set description "A basic sound synthesizer"
+	set decay 20
+	set attack 0
+
+define synth new_synth_1
+	set volume 1
+	set pan 0
+	set osc sine
+	set length 100
+	set freq "[sound]"
+	set duration sound
+	set description "A basic sound synthesizer"
+	set decay 20
+	set attack 0
+
+define loop practice_loop
+	set source_file ""
+	set source table
+	set skip 0
+	set repeat 1
+	set order random
+	set offset no
+	set item block_sequence
+	set description "A loop containing one or more practice blocks"
+	set cycles 1
+	set continuous no
+	set column_order practice
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 practice yes
+	run block_sequence
+
+define loop practice_setup
+	set source_file ""
+	set source table
+	set skip 0
+	set repeat 1
+	set order sequential
+	set offset no
+	set item trial_sequence
+	set description "A single block of trials"
+	set cycles 4
+	set continuous no
+	set column_order ""
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 left_figure bouba
+	setcycle 0 right_figure kiki
+	setcycle 0 sound A1
+	setcycle 0 instruction Rounded
+	setcycle 0 correct_button left_button
+	setcycle 1 left_figure kiki
+	setcycle 1 right_figure bouba
+	setcycle 1 sound A1
+	setcycle 1 instruction Spikey
+	setcycle 1 correct_button left_button
+	setcycle 2 left_figure kiki
+	setcycle 2 right_figure bouba
+	setcycle 2 sound A7
+	setcycle 2 instruction Rounded
+	setcycle 2 correct_button right_button
+	setcycle 3 left_figure bouba
+	setcycle 3 right_figure kiki
+	setcycle 3 sound A1
+	setcycle 3 instruction Rounded
+	setcycle 3 correct_button left_button
+	run trial_sequence
+
+define reset_feedback reset_feedback
+	set description "Resets the feedback variables, such as 'avg_rt' and 'acc'"
+
+define sketchpad sketchpad
+	set start_response_interval no
+	set duration 500
+	set description "Displays stimuli"
+	draw fixdot color=white show_if=always style=default x=0 y=288 z_index=0
+
+define sequence trial_sequence
+	set flush_keyboard yes
+	set description "A single trial"
+	run sketchpad always
+	run new_synth always
+	run new_synth_1 always
+	run trial_stimuli always
+	run new_mousetrap_response always
+	run logger always
+
+define sketchpad trial_stimuli
+	set duration 0
+	set description "Displays stimuli"
+	draw image center=1 file="bouba.png" scale=1 show_if="[left_figure]==bouba" x=-320 y=-224 z_index=0
+	draw image center=1 file="kiki.png" scale=1 show_if="[left_figure]==kiki" x=-320 y=-224 z_index=0
+	draw image center=1 file="bouba.png" scale=1 show_if="[right_figure]==bouba" x=320 y=-224 z_index=0
+	draw image center=1 file="kiki.png" scale=1 show_if="[right_figure]==kiki" x=320 y=-224 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=35 html=yes show_if=always text="[instruction]" x=0 y=288 z_index=0
+	draw rect color=white fill=0 h=192 name=left_button penwidth=1 show_if=always w=192 x=-416 y=-320 z_index=0
+	draw rect color=white fill=0 h=192 name=right_button penwidth=1 show_if=always w=192 x=224 y=-320 z_index=0
+
