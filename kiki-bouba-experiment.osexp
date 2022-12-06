@@ -250,7 +250,6 @@ define loop practice_loop
 	run block_sequence
 
 define loop practice_setup
-	set source_file ""
 	set source table
 	set skip 0
 	set repeat 1
@@ -258,31 +257,155 @@ define loop practice_setup
 	set offset no
 	set item trial_sequence
 	set description "A single block of trials"
-	set cycles 4
+	set cycles 24
 	set continuous no
 	set column_order ""
 	set break_if_on_first yes
 	set break_if never
-	setcycle 0 left_figure bouba
-	setcycle 0 right_figure kiki
-	setcycle 0 sound A1
-	setcycle 0 instruction Rounded
+	setcycle 0 left_figure "lynlås"
+	setcycle 0 right_figure lyntog
+	setcycle 0 sound ""
+	setcycle 0 instruction "lynlås"
 	setcycle 0 correct_button left_button
-	setcycle 1 left_figure kiki
-	setcycle 1 right_figure bouba
+	setcycle 0 Congruent 1
+	setcycle 1 left_figure bygning
+	setcycle 1 right_figure bygmark
 	setcycle 1 sound A1
-	setcycle 1 instruction Spikey
+	setcycle 1 instruction bygmark
 	setcycle 1 correct_button left_button
-	setcycle 2 left_figure kiki
-	setcycle 2 right_figure bouba
+	setcycle 1 Congruent 1
+	setcycle 2 left_figure plantegning
+	setcycle 2 right_figure plante
 	setcycle 2 sound A7
-	setcycle 2 instruction Rounded
+	setcycle 2 instruction plante
 	setcycle 2 correct_button right_button
-	setcycle 3 left_figure bouba
-	setcycle 3 right_figure kiki
+	setcycle 2 Congruent 1
+	setcycle 3 left_figure skydeskive
+	setcycle 3 right_figure sky
 	setcycle 3 sound A1
-	setcycle 3 instruction Rounded
+	setcycle 3 instruction skydeskive
 	setcycle 3 correct_button left_button
+	setcycle 3 Congruent 1
+	setcycle 4 left_figure kajak
+	setcycle 4 right_figure kage
+	setcycle 4 sound ""
+	setcycle 4 instruction kage
+	setcycle 4 correct_button ""
+	setcycle 4 Congruent 1
+	setcycle 5 left_figure vindrue
+	setcycle 5 right_figure vindue
+	setcycle 5 sound ""
+	setcycle 5 instruction vindrue
+	setcycle 5 correct_button ""
+	setcycle 5 Congruent 1
+	setcycle 6 left_figure kaffe
+	setcycle 6 right_figure kartoffel
+	setcycle 6 sound ""
+	setcycle 6 instruction kartoffel
+	setcycle 6 correct_button ""
+	setcycle 6 Congruent 1
+	setcycle 7 left_figure fjer
+	setcycle 7 right_figure fjeder
+	setcycle 7 sound ""
+	setcycle 7 instruction fjeder
+	setcycle 7 correct_button ""
+	setcycle 7 Congruent 1
+	setcycle 8 left_figure "lynlås"
+	setcycle 8 right_figure lyntog
+	setcycle 8 sound ""
+	setcycle 8 instruction lyntog
+	setcycle 8 correct_button ""
+	setcycle 8 Congruent 0
+	setcycle 9 left_figure bygning
+	setcycle 9 right_figure bygmark
+	setcycle 9 sound ""
+	setcycle 9 instruction bygning
+	setcycle 9 correct_button ""
+	setcycle 9 Congruent 0
+	setcycle 10 left_figure plantegning
+	setcycle 10 right_figure plante
+	setcycle 10 sound ""
+	setcycle 10 instruction plante
+	setcycle 10 correct_button ""
+	setcycle 10 Congruent 0
+	setcycle 11 left_figure skydeskive
+	setcycle 11 right_figure sky
+	setcycle 11 sound ""
+	setcycle 11 instruction ""
+	setcycle 11 correct_button ""
+	setcycle 11 Congruent 0
+	setcycle 12 left_figure kajak
+	setcycle 12 right_figure kage
+	setcycle 12 sound ""
+	setcycle 12 instruction ""
+	setcycle 12 correct_button ""
+	setcycle 12 Congruent 0
+	setcycle 13 left_figure vindrue
+	setcycle 13 right_figure vindue
+	setcycle 13 sound ""
+	setcycle 13 instruction ""
+	setcycle 13 correct_button ""
+	setcycle 13 Congruent 0
+	setcycle 14 left_figure kaffe
+	setcycle 14 right_figure kartoffel
+	setcycle 14 sound ""
+	setcycle 14 instruction ""
+	setcycle 14 correct_button ""
+	setcycle 14 Congruent 0
+	setcycle 15 left_figure fjer
+	setcycle 15 right_figure fjeder
+	setcycle 15 sound ""
+	setcycle 15 instruction ""
+	setcycle 15 correct_button ""
+	setcycle 15 Congruent 0
+	setcycle 16 left_figure "lynlås"
+	setcycle 16 right_figure lyntog
+	setcycle 16 sound ""
+	setcycle 16 instruction ""
+	setcycle 16 correct_button ""
+	setcycle 16 Congruent 0
+	setcycle 17 left_figure bygning
+	setcycle 17 right_figure bygmark
+	setcycle 17 sound ""
+	setcycle 17 instruction ""
+	setcycle 17 correct_button ""
+	setcycle 17 Congruent 0
+	setcycle 18 left_figure plantegning
+	setcycle 18 right_figure plante
+	setcycle 18 sound ""
+	setcycle 18 instruction ""
+	setcycle 18 correct_button ""
+	setcycle 18 Congruent 0
+	setcycle 19 left_figure skydeskive
+	setcycle 19 right_figure sky
+	setcycle 19 sound ""
+	setcycle 19 instruction ""
+	setcycle 19 correct_button ""
+	setcycle 19 Congruent 0
+	setcycle 20 left_figure kajak
+	setcycle 20 right_figure kage
+	setcycle 20 sound ""
+	setcycle 20 instruction ""
+	setcycle 20 correct_button ""
+	setcycle 20 Congruent 0
+	setcycle 21 left_figure vindrue
+	setcycle 21 right_figure vindue
+	setcycle 21 sound ""
+	setcycle 21 instruction ""
+	setcycle 21 correct_button ""
+	setcycle 21 Congruent 0
+	setcycle 22 left_figure kaffe
+	setcycle 22 right_figure kartoffel
+	setcycle 22 sound ""
+	setcycle 22 instruction ""
+	setcycle 22 correct_button ""
+	setcycle 22 Congruent 0
+	setcycle 23 left_figure fjer
+	setcycle 23 right_figure fjeder
+	setcycle 23 sound ""
+	setcycle 23 instruction ""
+	setcycle 23 correct_button ""
+	setcycle 23 Congruent 0
 	run trial_sequence
 
 define reset_feedback reset_feedback
@@ -292,26 +415,20 @@ define sketchpad sketchpad
 	set start_response_interval no
 	set duration 500
 	set description "Displays stimuli"
-	draw fixdot color=white show_if=always style=default x=0 y=288 z_index=0
+	draw fixdot color=white show_if=always style=default x=0.0 y=160.0 z_index=0
 
 define sequence trial_sequence
 	set flush_keyboard yes
 	set description "A single trial"
-	run sketchpad always
-	run new_synth always
-	run new_synth_1 always
 	run trial_stimuli always
+	run sketchpad always
 	run new_mousetrap_response always
 	run logger always
 
 define sketchpad trial_stimuli
 	set duration 0
 	set description "Displays stimuli"
-	draw image center=1 file="bouba.png" scale=1 show_if="[left_figure]==bouba" x=-320 y=-224 z_index=0
-	draw image center=1 file="kiki.png" scale=1 show_if="[left_figure]==kiki" x=-320 y=-224 z_index=0
-	draw image center=1 file="bouba.png" scale=1 show_if="[right_figure]==bouba" x=320 y=-224 z_index=0
-	draw image center=1 file="kiki.png" scale=1 show_if="[right_figure]==kiki" x=320 y=-224 z_index=0
-	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=35 html=yes show_if=always text="[instruction]" x=0 y=288 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=35 html=yes show_if=always text="[word]" x=4.0 y=220.0 z_index=0
 	draw rect color=white fill=0 h=192 name=left_button penwidth=1 show_if=always w=192 x=-416 y=-320 z_index=0
 	draw rect color=white fill=0 h=192 name=right_button penwidth=1 show_if=always w=192 x=224 y=-320 z_index=0
 
