@@ -19,20 +19,20 @@ Call me for help whenever you get stuck (or take a quick look in the solutions f
 pacman::p_load(mousetrap, tidyverse)
 
 # loading in data
-d <- list.files(path = "./Mousetracking_experiment/data/", pattern = "*.csv", full.names = T) %>% 
+d <- list.files(path = "./data/", pattern = "*.csv", full.names = T) %>% 
   map_df(~read_csv(.))
 
-d <- d %>% mutate(correct_figure = ifelse(correct_button=="left_button", left_figure,right_figure)) %>% 
-  mutate(congruent= ifelse(correct_figure=="kiki"& sound=="A7"|correct_figure=="bouba"& sound=="A1", "congruent","incongruent")) %>% 
-  filter(subject_nr!=5)
+d <- d %>% mutate(correct=as.factor(correct))
 
-d5 <- d %>% filter(subject_nr == 5) %>% filter(count_logger==1)
+d %>% group_by(correct) %>% summarise(n = count)
+
+d <- d %>% filter(correct==1 & practice == "no")
+
 ```
 
 ### Turn the data into a mousetrap object
 ```{r}
 m <- mt_import_mousetrap(d)
-m5 <- mt_import_mousetrap(d5)
 ```
 Take a moment to look at the structure that it created. What are the elements, what information does it provide?
 
@@ -49,7 +49,7 @@ mt_plot(data = m, use = 'trajectories')
 ### Make a plot in which the lines are coloured by condition
 The demo-experiment had different trial types for which we have different predictions. Make a plot that distinguishes these two conditions, e.g. by different colors. 
 ```{r}
-mt_plot(m, color = 'congruent', alpha = 0.3)
+mt_plot(m, color = 'Condition', alpha = 0.5)
 ```
 
 
@@ -67,7 +67,7 @@ m <- mt_remap_symmetric(
 mt_plot(
   m, 
   use = 'trajectories',
-  color = 'congruent',
+  color = 'Condition',
   alpha = 0.4)
 
 # turns the data upside down, so it resembles the actual mouse tracking task
@@ -81,7 +81,7 @@ mt_plot(
   x = 'timestamps', # modifying the x-axis to plot timestamps
   y = 'xpos',       # modifying the y-axis to plot the xpos
   use = 'trajectories',
-  color = 'congruent' 
+  color = 'Condition' 
 )
 ```
 
@@ -99,7 +99,7 @@ mt_plot(
   x = 'timestamps', # modifying the x-axis to plot timestamps
   y = 'xpos',       # modifying the y-axis to plot the xpos
   use = 'trajectories',
-  color = 'congruent' 
+  color = 'Condition' 
 )
 ```
 
@@ -119,7 +119,7 @@ Find out how to plot the normalized trajectories instead of the raw data.
 mt_plot(
   m, 
   use = 'tn_trajectories',
-  color = 'congruent'
+  color = 'Condition'
 )
 ```
 
@@ -136,7 +136,7 @@ m_tn <- mt_time_normalize(
 mt_plot(
   m_tn, 
   use = 'tn_trajectories',
-  color = 'congruent'
+  color = 'Condition'
 )
 ```
 
@@ -148,13 +148,13 @@ Think: Which trajectories do we need to use, the original or the time normalized
 mt_plot_aggregate(
   m, 
   use = 'trajectories',
-  color = 'congruent'
+  color = 'Condition'
 )
 
 mt_plot_aggregate(
   m, 
   use = 'tn_trajectories',
-  color = 'congruent'
+  color = 'Condition'
 ) + 
   labs(
     title = 'Aggregated time-normalized mouse trajectories')
@@ -174,12 +174,35 @@ mt_measures_ag <- mt_aggregate(
   m,
   use = 'measures',
   use_variables = c('MAD', 'xpos_flips','AUC', 'RT'), # if you want all of the measures, exclude this line
-  use2_variables = 'congruent'
+  use2_variables = 'Condition',
+  #subject_id = "subject_nr"
   )
 
+mt_measures_ag <- mt_aggregate_per_subject(
+  m,
+  use = 'measures',
+  use_variables = c('MAD', 'xpos_flips','AUC', 'RT','idle_time'), # if you want all of the measures, exclude this line
+  use2_variables = 'Condition',
+  subject_id = "subject_nr"
+  )
+
+
 mt_measures_ag
+
+t.test(AUC ~ Condition, data = m, paired = TRUE, var.equal = TRUE)
+
+```
+```{r}
+ggplot(mt_measures_ag)+
+  aes(x=AUC, fill=Condition)+
+  geom_histogram(bins = 10)+
+  theme_minimal()
 ```
 
+
+```{r}
+df <- mt_export_wide(m)
+```
 
 ### Interpret the results
 Take a moment to think what these “results” could mean if this was a proper experiment which was not run by your instructor. How would you interpret this? Does this match your hypothesis? Especially look at the MAD (maximum absolute deviation from the direct path), the AUC (area under the curve) and the reaction time. 
@@ -229,7 +252,7 @@ As the mt_plot function uses ggplot, you can easily add themes, titles and such 
 mt_plot(
   m_align, 
   use = 'trajectories',
-  color = 'trial_type'
+  color = 'Congruent'
 ) + 
   theme_minimal() +
   labs(title = 'Alligned mouse-tracking data', x = 'Postition (x)', y = 'Postistion(y)', color = 'Trial Type')
