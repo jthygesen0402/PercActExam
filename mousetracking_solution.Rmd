@@ -167,6 +167,8 @@ Apply the function “mt_measures” and look at the outcome in your data variab
 m <- mt_measures(m, use = 'tn_trajectories')
 ```
 
+
+
 ### Aggregating measures
 Now find a function that helps you aggregate some measures of your pleasing over the two trial_types.
 ```{r}
@@ -189,7 +191,9 @@ mt_measures_ag <- mt_aggregate_per_subject(
 
 mt_measures_ag
 
-t.test(AUC ~ Condition, data = m, paired = TRUE, var.equal = TRUE)
+
+t.test(MAD~Condition, data = mt_measures_ag, paired = TRUE)
+t.test(AUC~Condition, data = mt_measures_ag, paired = TRUE)
 
 ```
 ```{r}
