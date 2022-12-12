@@ -18,15 +18,25 @@ Call me for help whenever you get stuck (or take a quick look in the solutions f
 # loading packages
 pacman::p_load(mousetrap, tidyverse)
 
+
+
 # loading in data
-d <- list.files(path = "./data/", pattern = "*.csv", full.names = T) %>% 
-  map_df(~read_csv(.))
+d <- list.files(path = "./data/", pattern = "*.csv", full.names = T)
+
+df <- d[-14] %>% map_df(~read_csv(.))
+
+df14 <- d[14]%>% map_df(~read_csv(.)) %>% mutate(response_Welcome=as.character(response_Welcome))
+
+d <- rbind(df, df14)
 
 d <- d %>% mutate(correct=as.factor(correct))
 
-d %>% group_by(correct) %>% summarise(n = count)
+d %>% 
+  group_by(Condition, correct) %>%
+  summarise(no_participants = length(correct))
 
 d <- d %>% filter(correct==1 & practice == "no")
+
 
 ```
 
